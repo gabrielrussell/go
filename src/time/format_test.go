@@ -599,3 +599,12 @@ func TestUnderscoreTwoThousand(t *testing.T) {
 		t.Errorf("Incorrect minute, got %d", m)
 	}
 }
+
+func TestSecondOutOfRangeWithOptionalFractionalSeconds(t *testing.T) {
+	format := RFC3339
+	input := "2010-02-04T21:00:67.012345678-08:00"
+	time, err := Parse(format, input)
+	if err == nil {
+		t.Errorf("%q: expected 'second out of range' error, got time %v", input, time)
+	}
+}
